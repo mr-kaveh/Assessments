@@ -7,7 +7,7 @@ but i ended up completing 3 tests, which was kind of fun.
 
 Problem #1 was solved and pushed to the Development Directory.
 
-## problem #1 of Dev
+## Dev problem #1 
 
 Create a simple RESTful API which provides a service for storing, updating,
 retrieving and deleting Person entities such as those represented in the
@@ -38,7 +38,7 @@ Desinging of the Operation Problems was so smart,and after doing some research o
 i figured out that both of them can be done by the same set of Tools.this Assesments are pushed into 
 the Operation Derectory.
 
-## Problem #1 of Ops
+## Ops Problem #1 
 
 We want to store the access logs of any HTTP server of your choosing (e.g.
 httpd, Nginx, lighttpd) in a database. Ideally, a new record should be
@@ -46,7 +46,7 @@ created each time there is a new line in the access log. Feel free to use any
 logging framework/module and database you want to implement your
 solution.
 
-## Problem #2 of Ops
+## Ops Problem #2
 
 We want to store some metrics of a running server; CPU utilisation, free
 memory and disk space to be specifc. We would like to be able to inspect
