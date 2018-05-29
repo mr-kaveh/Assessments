@@ -32,3 +32,9 @@ the playbook will be played with the fillowing command:
 ```
 # ansible-playbook -i "localhost," -c local playBook.yml
 ```
+
+now we have all the required services to gather metrics from the System and visualize with Tick graphs.
+you can access the Chronograf interface by visiting http://your_server_ip:8888 in your web browser.
+the more specific address for the basic system metrics is http://your_server_ip:8888/sources/1/hosts/server_hostname
+tick enables us to create customized dashboards as well as numerous plugins that can be added to telegraf(the time-series data collector)
+to help us monitor services like apache,nginx,mysql,docker,casandra,network interface traffic,.....
