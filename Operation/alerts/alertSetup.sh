@@ -1,4 +1,8 @@
 #!/bin/bash
+#Setting up alerts to notify System administrator if 
+#a disk is running out of space or system load is going up
+#or a process is stressing the memory.
+
 
 #Disk Alert
 kapacitor define disk_usage_alert -tick alerts/disk/disk_usage_percent.tick -dbrp "telegraf"."autogen" && kapacitor enable disk_usage_alert;
