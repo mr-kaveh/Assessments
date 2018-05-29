@@ -1,0 +1,94 @@
+---
+- hosts: all
+  tasks:
+    - name: Copy the influxdata repo file
+      copy: src=files/influxdata.repo dest=/etc/yum.repos.d/influxdata.repo
+    
+    - name: Install influxdb
+      yum:  
+        name: influxdb
+        state: installed
+    
+    - name: enable influxdb service
+      service: name=influxdb enabled=yes
+
+    - name: start influxdb
+      service: name=influxdb state=started
+    
+    - name: create user in influxdb
+      uri:
+        url: "http://localhost:8086/query"
+        method: POST
+        body: "q=CREATE USER hossein WITH PASSWORD 'hd@influx' WITH ALL PRIVILEGES"
+    
+    - name: Copy the influxdata Config file
+      copy: src=files/influxdb.conf dest=/etc/influxdb/influxdb.conf
+    
+    - name: restart influxdb
+      service: name=influxdb state=restarted
+
+    - name: Install telegraf
+      yum:
+        name: telegraf
+        state: installed
+
+    - name: enable telegraf service
+      service: name=telegraf enabled=yes
+
+    - name: start telegraf
+      service: name=telegraf state=started
+
+    - name: Copy the telegraf Config file
+      copy: src=files/telegraf.conf dest=/etc/telegraf/telegraf.conf
+
+    - name: Copy the telegraf Plugin files
+      copy: src=files/telegraf.d dest=/etc/telegraf/
+
+    - name: restart telegraf
+      service: name=telegraf state=restarted
+
+    - name: Install kapacitor
+      yum:
+        name: kapacitor
+        state: installed
+
+    - name: Copy the kapacitor Config file
+      copy: src=files/kapacitor.conf dest=/etc/kapacitor/kapacitor.conf
+
+    - name: Ensure systemd is reloaded after kapacitor has changed
+      shell: systemctl daemon-reload
+
+    - name: enable kapacitor service
+      service: name=kapacitor enabled=yes
+
+    - name: start kapacitor
+      service: name=kapacitor state=started  
+
+    #- name: Download chronograf
+     # shell: wget -O files/chronograf-1.5.0.0.x86_64.rpm https://dl.influxdata.com/chronograf/releases/chronograf-1.5.0.0.x86_64.rpm
+     # args:
+     #   warn: false  
+
+    - name: Install chronograf from a local rpm
+      yum:
+        name: files/chronograf-1.5.0.0.x86_64.rpm
+        state: installed
+
+    - name: start chronograf
+      service: name=chronograf state=started
+
+    - name: Openning firewall Port for chronograf
+      shell: sudo firewall-cmd --zone=public --permanent --add-port=8888/tcp && sudo firewall-cmd --reload
+      args:
+        warn: false
+
+    - name: Openning firewall Port for Kapacitor
+      shell: sudo firewall-cmd --zone=public --permanent --add-port=9092/tcp && sudo firewall-cmd --reload
+      args:
+        warn: false
+   
+    - name: Adding and Enabling Alerts to the kapacitor
+      shell: /bin/sh alerts/alertSetup.sh  
+      args:
+        warn: false
+
