@@ -44,3 +44,66 @@ to help us monitor services like apache,nginx,mysql,docker,casandra,network inte
 
 alerts directory contains scripts for setting up alerts based on resource thresholds. the scripts will be added and enabled 
 with alertSetup.sh which automatically executes by playBook.yml
+
+manage tasks(alerts) page 
+```
+http://your_server_ip:8888/sources/1/alert-rules
+```
+alerts are set to send to my email in my configuration, but it is possible to send them to your slack,telegram,.....
+
+## Telegraf Plugins
+
+There are more then 60 input plugins for Telegraf. It can gather metrics from many popular services and databases.it helps us
+monitor a wide variaty of services on our development server and send specific reports for users and developers of an specific service.
+in files/telegraf.d i have gathered few plugins which will gather data about nginx, apache, sysstat, net response,etc...
+these plugins will be copied to /etc/telegraf during playBook.yml execution.
+
+# Problem #1
+
+so let's talk about influxdb which as it's name implies is a database system it has 3 main databases after playBook.yml execution
+what we are going to work with, is telegraf database. you can enter influx database with following command:
+
+```
+# influx
+```
+or in our case with the following credentials:
+
+```
+influx -username 'hossein' -password 'hd@influx'
+```
+we mentioned telegraf plugins , they are tables in influxdb if type:
+```
+> use telegraf
+```
+and then 
+```
+> show measurements
+```
+you will see a list of system metrics in form of tables, which you can query.
+creating a customized plugin as follows in /etc/telegraf/telegraf.d:
+
+```
+[[inputs.logparser]]
+  ## files to tail.
+  files = ["/var/log/nginx/access.log"]
+  ## Read file from beginning.
+  from_beginning = true
+  ## Override the default measurement name, which would be "logparser_grok"
+  name_override = "nginx_access_log"
+  ## For parsing logstash-style "grok" patterns:
+  [inputs.logparser.grok]
+    patterns = ["%{COMBINED_LOG_FORMAT}"]
+
+[[outputs.influxdb]]
+  ## The full HTTP or UDP endpoint URL for your InfluxDB instance.
+  urls = ["http://localhost:8086"] # required
+  ## The target database for metrics (telegraf will create it if not exists).
+  database = "telegraf" # required
+  ## Write timeout (for the InfluxDB client), formatted as a string.
+  timeout = "5s"
+```
+after adding the plugin, just restart telegraf service and check the status and 
+nginx access log can be inserted into the influxdb every 10 seconds by telegraf and
+problem #1 is completed as well.
+
+## Testing the customized plugin
