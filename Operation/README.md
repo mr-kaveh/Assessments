@@ -14,6 +14,21 @@ access log and for the problem #2 it is simply Monitoring, and BINGO!!!
 we are going to collect metrics from the system resources and services(webServer included) and make 
 dashboards and graphs to monitor our system. let's first address the Problem #2.
 
-# Problem #
+# Problem #2
 
-Since 
+## Prerequisites
+
+```
+ansible 2.5
+python 2.7
+```
+
+## Setting up Monitoring with Tick stack
+
+The point is to have minimum Hand-ops, so i have used an ansible playbook to manage the configuration
+as well as the installation of required packages.i am on centos 7 so, YUM will be our package manager.
+the playbook will be played with the fillowing command:
+
+```
+# ansible-playbook -i "localhost," -c local playBook.yml
+```
