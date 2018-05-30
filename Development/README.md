@@ -35,7 +35,7 @@ Update pip and install virtualenv:
 pip install -U pip
 pip install -U virtualenv
 ```
-to create a project from scratch you may do the rest in the project directory.my project directory was '~/assessments/Development'.
+to create a project from scratch you may do the rest in the project directory.my project directory was '~/Assessments/Development'.
 
 ```
 virtualenv venv
