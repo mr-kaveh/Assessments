@@ -1,9 +1,9 @@
-# Assesments
+# assessments
 
 Development and Operation Tests. i was supposed to complete 2  problems out of 4,
 but i ended up completing 3 tests, which was kind of fun.
 
-# Development Assesment
+# Development assessment
 
 Problem #1 was solved and pushed to the Development Directory.
 
@@ -32,10 +32,10 @@ JSON below:
 }
 ```
 
-# Operation Assesments
+# Operation assessments
 
 Desinging of the Operation Problems was so smart,and after doing some research on both problems
-i figured out that both of them can be done by the same set of Tools.this Assesments are pushed into 
+i figured out that both of them can be done by the same set of Tools.this assessments are pushed into 
 the Operation Derectory.
 
 ## Ops Problem #1 
