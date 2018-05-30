@@ -107,3 +107,20 @@ nginx access log can be inserted into the influxdb every 10 seconds by telegraf 
 problem #1 is completed as well.
 
 ## Testing the customized plugin
+for testing the functionality of the customized telegraf plugin we can use the following command:
+```
+# telegraf --config /etc/telegraf/telegraf.d/customized_plugin.conf
+```
+this will assign our customized_plugin.conf as the main config file for telegraf temporarily and 
+monitores nginx access log every 10 seconds and inserts the new line into the database. now if 
+you login to influxdb and type in the following commands:
+```
+> use telegraf
+> select * from nginx_access_log
+```
+you will see entries of /var/log/nginx/access.log as table rows.
+
+## Useful Links
+
+* (https://www.influxdata.com/blog/telegraf-correlate-log-metrics-data-performance-bottlenecks/) - Customized Plugin
+* (https://github.com/influxdata/telegraf/tree/master/plugins/inputs/) - Telegraf Input Plugins

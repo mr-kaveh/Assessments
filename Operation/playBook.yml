@@ -75,10 +75,10 @@
     - name: start kapacitor
       service: name=kapacitor state=started  
 
-    #- name: Download chronograf
-     # shell: wget -O files/chronograf-1.5.0.0.x86_64.rpm https://dl.influxdata.com/chronograf/releases/chronograf-1.5.0.0.x86_64.rpm
-     # args:
-     #   warn: false  
+    - name: Download chronograf
+      shell: wget -O files/chronograf-1.5.0.0.x86_64.rpm https://dl.influxdata.com/chronograf/releases/chronograf-1.5.0.0.x86_64.rpm
+      args:
+        warn: false  
 
     - name: Install chronograf from a local rpm
       yum:
