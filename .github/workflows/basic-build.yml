@@ -9,13 +9,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v2
-    - name: Run a one-line SCript
-      run: echo 'Hellllllooooooo'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run a one-line SCript
+        run: echo 'Hellllllooooooo'
       
-    - name: Run a Multi-line Script
-      run: |
-        echo 'first line'
-        echo 'second line'
+      - name: Run a Multi-line Script
+        run: |
+          echo 'first line'
+          echo 'second line'
     
