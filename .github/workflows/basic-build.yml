@@ -16,6 +16,6 @@ jobs:
       
       - name: Run a Multi-line Script
         run: |
-          echo 'first line' ,
+          echo 'first line'
           echo 'second line'
     
