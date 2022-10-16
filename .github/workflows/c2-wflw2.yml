@@ -1,0 +1,29 @@
+name: Android-AppCenter
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  
+  Android:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v1
+    
+  AppcenterDistribute:
+    runs-on: ubuntu-latest
+    needs: Android
+    steps:
+    - uses: actions/download-artifact@v2
+      with:
+        name: my-artifact
+    
+    - name: App Center
+      uses: wzieba/AppCenter-Github-Action@v1.0.0
+      with:
+        appName: Ch-DemoOrg/demoapp
+        token: ${{ secrets.AppCenterAPIToken }}
+        group: alphatesters
+        file: AwesomeApp/AwesomeApp.Android/bin/Debug/com.companyname.AwesomeApp.apk
+        releaseNotes: "demo test"
